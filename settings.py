@@ -68,11 +68,11 @@ AUTOTHROTTLE_ENABLED = True
 AUTOTHROTTLE_START_DELAY = 0
 
 ITEM_PIPELINES = {
-   "cphones.pipelines.MongoDBCphonesPipeline": 100,
+   "cphones.pipelines.CSVDBUnitopPipeline": 100,
    "cphones.pipelines.JsonDBCphonesPipeline": 200,
    "cphones.pipelines.MongoDBCphonesPipeline": 300,
-#    "unitop.pipelines.MySQLUnitopPipline": 400,
-# 	"unitop.pipelines.PostgresUnitopPipeline": 500
+# MySQL
+# POSTGRES
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

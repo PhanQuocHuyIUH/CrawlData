@@ -43,14 +43,17 @@ class JsonDBCphonesPipeline:
         self.file.close()
 
 class CSVDBUnitopPipeline:
-    def process_item(self, item, spider):
-        self.file = open('coursedata.csv','a',newline='',encoding='utf-8')
-        self.csv_writer = csv.DictWriter(self.file,delimiter="$", fieldnames=['phoneUrl', 'name', 'upgrade_price', 'price','contain','description','highlight'])
-        self.csv_writer.writerow(item)
-        self.csv_writer = csv.writer(self.file,delimiter="$")
-        self.csv_writer.writerow([item['phoneUrl'], item['name'], item['upgrade_price'], item['price'],item['contain'],item['description'],item['highlight']])
-        self.file.close
+     def process_item(self, item, spider):
+        with open('phonedata.csv', 'a', encoding='utf-8', newline='') as file:
+            writer = csv.writer(file, delimiter='$')
+            writer.writerow([
+                item['phoneUrl'],
+                item['name'],
+                item['upgrade_price'],
+                item['price'],
+                item['contain'],
+                item['description'],
+                item['highlight'],
+            ])
         return item
-    
-    pass
-    
+     pass
