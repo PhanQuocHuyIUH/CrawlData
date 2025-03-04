@@ -1,0 +1,61 @@
+# version: "3.8"
+# services:
+#   spider:
+#     build: .
+#     container_name: cphones_spider
+#     depends_on:
+#       - mongodb
+#       # - postgres
+#     environment:
+#       - MONGODB_HOST=mongodb
+#       # - POSTGRES_HOST=postgres
+#     volumes:
+#       - ./data:/app/data
+#   mongodb:
+#     image: mongo:latest
+#     container_name: mongodb
+#     ports:
+#       - "27017:27017"
+#     volumes:
+#       - mongodb_data:/data/db
+#   # postgres:
+#   #   image: postgres:latest
+#   #   container_name: postgres
+#   #   environment:
+#   #     POSTGRES_USER: xuatnhapcanh_user
+#   #     POSTGRES_PASSWORD: 1234
+#   #     POSTGRES_DB: xuatnhapcanh_db
+#   #   ports:
+#   #     - "5432:5432"
+#   #   volumes:
+#   #     - postgres_data:/var/lib/postgresql/data
+# volumes:
+#   mongodb_data:
+#   # postgres_data:
+# networks:
+#   default:
+#     name: cphones_spider
+
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    restart: always
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongodb_data:/data/db
+
+  scrapy:
+    build: .
+    container_name: scrapy_crawl
+    depends_on:
+      - mongodb
+    environment:
+      - MONGO_URI=mongodb://mongodb:27017
+      - MONGO_DATABASE=CellPhoneS
+
+volumes:
+  mongodb_data:
